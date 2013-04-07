@@ -26,4 +26,13 @@ describe Web do
     post "/endpoints"
     assert_equal 200, last_response.status
   end
+
+  it "fails gracefully" do
+    stub_ion do
+      post("/endpoints") { 422 }
+    end
+
+    post "/endpoints"
+    assert_equal 422, last_response.status
+  end
 end
